@@ -21,7 +21,7 @@ class Home extends React.Component {
 		return (
 			<React.Fragment>
 				<MenuAppbar history={history} />
-				<SideBar />
+				<SideBar history={history} />
 			</React.Fragment>
 		);
 	}

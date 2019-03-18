@@ -8,7 +8,12 @@ class SideBar extends React.Component {
 		collapsed: true
 	};
 	handleClick = e => {
-		console.log("click", e);
+		if (e.keyPath[0] === "1") {
+			this.props.history.push("/home/students");
+		}
+		if (e.keyPath[0] === "3") {
+			this.props.history.push("/home/addstudent");
+		}
 	};
 	toggleCollapsed = () => {
 		this.setState({
@@ -17,7 +22,13 @@ class SideBar extends React.Component {
 	};
 	render() {
 		return (
-			<div style={{ width: 256, position: "absolute" }}>
+			<div
+				style={{
+					width: 256,
+					position: "absolute",
+					zIndex: this.state.collapsed ? 0 : 1
+				}}
+			>
 				<Button
 					type="secondary"
 					onClick={this.toggleCollapsed}
@@ -26,10 +37,8 @@ class SideBar extends React.Component {
 					<Icon type={this.state.collapsed ? "menu-unfold" : "menu-fold"} />
 				</Button>
 				<Menu
+					style={{ zIndex: 1 }}
 					theme="dark"
-					style={{
-						backgroundColor: "rgba(255,255,255,0.1)"
-					}}
 					inlineCollapsed={this.state.collapsed}
 					onClick={this.handleClick}
 					mode="inline"
@@ -55,8 +64,8 @@ class SideBar extends React.Component {
 							</span>
 						}
 					>
-						<Menu.Item key="1">Student</Menu.Item>
-						<Menu.Item key="2">Teacher</Menu.Item>
+						<Menu.Item key="3">Student</Menu.Item>
+						<Menu.Item key="4">Teacher</Menu.Item>
 					</SubMenu>
 					<SubMenu
 						key="sub3"
@@ -67,8 +76,8 @@ class SideBar extends React.Component {
 							</span>
 						}
 					>
-						<Menu.Item key="1">Student</Menu.Item>
-						<Menu.Item key="2">Teacher</Menu.Item>
+						<Menu.Item key="5">Student</Menu.Item>
+						<Menu.Item key="6">Teacher</Menu.Item>
 					</SubMenu>
 					<SubMenu
 						key="sub4"

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Auth from "./components/Auth";
 import Home from "./components/Home";
 import Student from "./components/Student";
+import AddStudent from "./components/AddStudent";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
 import "./App.css";
@@ -16,6 +17,7 @@ class App extends Component {
 						<Route path="/" exact component={Auth} />
 						<Route path="/home" component={Home} />
 						<Route path="/home/students" exact component={Student} />
+						<Route path="/home/addstudent" exact component={AddStudent} />
 					</div>
 				</BrowserRouter>
 			</Provider>
