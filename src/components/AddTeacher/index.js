@@ -1,39 +1,34 @@
 import React from "react";
 import MyInput from "../Reusable/Input";
-import { Form, Select, DatePicker, Button, Spin, message } from "antd";
-import { addStudent } from "../../api/student";
+import { Form, Select, Button, Spin, message } from "antd";
+import { addTeacher } from "../../api/teacher";
 
 const { Option } = Select;
 
-const dateFormat = "YYYY/MM/DD";
-
-class AddStudent extends React.Component {
+class AddTeacher extends React.Component {
 	state = {
 		loading: false
 	};
 	handleSubmit = e => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
+			console.log(values);
 			if (!err) {
-				if (values.nic.length === 15) {
-					this.setState({ loading: true }, () => {
-						addStudent(values)
-							.then(res => {
-								this.setState({ loading: false }, () => {
-									message.success("Record has been added", 5);
-								});
-							})
-							.catch(err => {
-								this.setState({ loading: false }, () => {
-									message.error("Duplicate Gr Number or NIC", 5);
-								});
+				this.setState({ loading: true }, () => {
+					addTeacher(values)
+						.then(res => {
+							this.setState({ loading: false }, () => {
+								message.success("Record has been added", 5);
 							});
-					});
-				} else {
-					message.error("Enter Correct Nic with dashes");
-				}
+						})
+						.catch(err => {
+							this.setState({ loading: false }, () => {
+								message.error("Duplicate Registration may be", 5);
+							});
+						});
+				});
 			} else {
-				console.log(err);
+				message.error("Fill out all fields first");
 			}
 		});
 	};
@@ -52,27 +47,27 @@ class AddStudent extends React.Component {
 				) : (
 					<div style={styles.innerContainer}>
 						<h2 style={{ fontFamily: "sans-serif", fontWeight: "bolder" }}>
-							Add Student
+							Add Teacher
 						</h2>
 						<Form onSubmit={this.handleSubmit}>
 							<div style={styles.inputContainer}>
 								<MyInput
-									label="Gr #"
+									label="Registration #"
 									getFieldDecorator={getFieldDecorator}
-									name="gr_num"
+									name="reg_num"
 									required
-									message="Please input Gr No."
+									message="Please input Registration No."
 									type="text"
-									placeholder="Enter Gr #"
+									placeholder="Enter Registration #"
 								/>
 								<MyInput
-									label="Nic"
+									label="Salary"
 									getFieldDecorator={getFieldDecorator}
-									name="nic"
+									name="salary"
 									required
-									message="Please input Nic number"
-									type="text"
-									placeholder="Enter nic"
+									message="Please input Salary"
+									type="number"
+									placeholder="Enter Salary"
 								/>
 							</div>
 							<div style={styles.inputContainer}>
@@ -119,33 +114,33 @@ class AddStudent extends React.Component {
 									type="Number"
 									placeholder="Enter Age"
 								/>
-								<Form.Item label="Class">
-									{getFieldDecorator("class")(
+								<Form.Item label="Primary Subject">
+									{getFieldDecorator("subject")(
 										<Select>
-											<Option value="Nursery">Nursery</Option>
-											<Option value="Prep">Prep</Option>
-											<Option value="One">One</Option>
-											<Option value="Two">Two</Option>
-											<Option value="Three">Three</Option>
-											<Option value="Four">Four</Option>
-											<Option value="Five">Five</Option>
-											<Option value="Six">Six</Option>
-											<Option value="Seven">Seven</Option>
-											<Option value="Eight">Eight</Option>
-											<Option value="Nine">Nine</Option>
-											<Option value="Matric">Matric</Option>
+											<Option value="Urdu">Urdu</Option>
+											<Option value="English">English</Option>
+											<Option value="Maths">Maths</Option>
+											<Option value="Chemistry">Chemistry</Option>
+											<Option value="Physics">Physics</Option>
+											<Option value="Biology">Biology</Option>
+											<Option value="Sindhi">Sindhi</Option>
+											<Option value="Science">Science</Option>
+											<Option value="Islamiat">Islamiat</Option>
+											<Option value="Pak Studies">Pak Studies</Option>
+											<Option value="PT">PT</Option>
+											<Option value="Library">Library</Option>
 										</Select>
 									)}
 								</Form.Item>
-								<Form.Item label="Section">
-									{getFieldDecorator("section")(
-										<Select>
-											<Option value="A">A</Option>
-											<Option value="B">B</Option>
-											<Option value="C">C</Option>
-										</Select>
-									)}
-								</Form.Item>
+								<MyInput
+									label="Teacher of Class"
+									getFieldDecorator={getFieldDecorator}
+									name="class_teacher"
+									required
+									message="Please Enter class Teacher"
+									type="text"
+									placeholder="Enter class Teacher"
+								/>
 							</div>
 							<div
 								style={{
@@ -164,23 +159,7 @@ class AddStudent extends React.Component {
 									placeholder="Enter Address"
 								/>
 							</div>
-							<div style={styles.inputContainer}>
-								<Form.Item label="Admission Date">
-									{getFieldDecorator("admission_date")(
-										<DatePicker format={dateFormat} />
-									)}
-								</Form.Item>
 
-								<MyInput
-									label="New Password"
-									getFieldDecorator={getFieldDecorator}
-									name="password"
-									required
-									message="Please Enter Password"
-									type="text"
-									placeholder="Enter New Password"
-								/>
-							</div>
 							<div
 								style={{
 									display: "flex",
@@ -196,7 +175,7 @@ class AddStudent extends React.Component {
 									Reset Values
 								</Button>
 								<Button type="primary" htmlType="submit">
-									Add Student
+									Add Teacher
 								</Button>
 							</div>
 						</Form>
@@ -225,4 +204,4 @@ const styles = {
 		gridGap: "20px"
 	}
 };
-export default Form.create({ name: "addstudent" })(AddStudent);
+export default Form.create({ name: "addteacher" })(AddTeacher);

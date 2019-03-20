@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { verify } from "../../api";
 import SideBar from "./Sidebar";
 import MenuAppbar from "./Appbar";
-import "./index.css";
 
 class Home extends React.Component {
 	componentDidMount() {

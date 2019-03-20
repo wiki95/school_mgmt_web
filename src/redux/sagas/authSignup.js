@@ -8,6 +8,7 @@ function* signupWorker(val) {
 			yield put({ type: "SIGNUP_SUCCEED" });
 			yield put({ type: "USER_FETCHED", payload: res.data });
 			yield localStorage.setItem("Token", res.data.token);
+			yield localStorage.setItem("Email", res.data.email);
 			yield val.other.history.push("/home");
 		}
 	} catch (err) {

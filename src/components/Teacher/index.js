@@ -2,10 +2,10 @@ import React from "react";
 import { Table, Button, Input, Icon } from "antd";
 import Highlighter from "react-highlight-words";
 import DeleteModal from "./Delete";
-import { deleteStudents, updateStudent, getStudents } from "../../api/student";
+import { deleteTeachers, updateTeacher, getTeachers } from "../../api/teacher";
 import UpdateModal from "./Update";
 
-class Student extends React.Component {
+class Teacher extends React.Component {
 	_isMounted = false;
 	state = {
 		data: [],
@@ -31,7 +31,7 @@ class Student extends React.Component {
 	};
 	componentDidMount() {
 		this._isMounted = true;
-		getStudents().then(res => {
+		getTeachers().then(res => {
 			if (this._isMounted) {
 				this.setState({
 					data: res.data.data,
@@ -143,7 +143,7 @@ class Student extends React.Component {
 			confirmDeleteLoading: true,
 			loading: true
 		});
-		deleteStudents(this.state.selectedRows)
+		deleteTeachers(this.state.selectedRows)
 			.then(() => {
 				this.setState(
 					{
@@ -152,7 +152,7 @@ class Student extends React.Component {
 						modalVisible: false
 					},
 					() => {
-						getStudents().then(res => {
+						getTeachers().then(res => {
 							this.setState({
 								data: res.data.data,
 								loading: false
@@ -170,14 +170,13 @@ class Student extends React.Component {
 	};
 	handleUpdateModal = values => {
 		values._id = this.state.selectedRows[0];
-		values.admission_date = values.admission_date._d.toString().substr(0, 15);
 		this.setState(
 			{
 				confirmUpdateLoading: true,
 				loading: true
 			},
 			() => {
-				updateStudent(values)
+				updateTeacher(values)
 					.then(() => {
 						this.setState(
 							{
@@ -186,8 +185,7 @@ class Student extends React.Component {
 								updateModalVisible: false
 							},
 							() => {
-								getStudents().then(res => {
-									this.forceUpdate();
+								getTeachers().then(res => {
 									this.setState({
 										updateError: "",
 										data: res.data.data,
@@ -228,10 +226,10 @@ class Student extends React.Component {
 				dataIndex: "sr_num"
 			},
 			{
-				title: "Gr Num",
-				dataIndex: "gr_num",
-				key: "gr_num",
-				...this.getColumnSearchProps("gr_num")
+				title: "Reg Num",
+				dataIndex: "reg_num",
+				key: "reg_num",
+				...this.getColumnSearchProps("reg_num")
 			},
 			{
 				title: "First Name",
@@ -256,37 +254,29 @@ class Student extends React.Component {
 				dataIndex: "age"
 			},
 			{
-				title: "Class",
-				dataIndex: "class",
-				key: "class",
+				title: "Subject",
+				dataIndex: "subject",
+				key: "subject",
 				filters: [
-					{ text: "Nursery", value: "Nursery" },
-					{ text: "Prep", value: "Prep" },
-					{ text: "One", value: "One" },
-					{ text: "Two", value: "Two" },
-					{ text: "Three", value: "Three" },
-					{ text: "Four", value: "Four" },
-					{ text: "Five", value: "Five" },
-					{ text: "Six", value: "Six" },
-					{ text: "Seven", value: "Seven" },
-					{ text: "Eight", value: "Eight" },
-					{ text: "Nine", value: "Nine" },
-					{ text: "Matric", value: "Matric" }
+					{ text: "Urdu", value: "Urdu" },
+					{ text: "English", value: "English" },
+					{ text: "Maths", value: "Maths" },
+					{ text: "Chemistry", value: "Chemistry" },
+					{ text: "Physics", value: "Physics" },
+					{ text: "Biology", value: "Biology" },
+					{ text: "Sindhi", value: "Sindhi" },
+					{ text: "Science", value: "Science" },
+					{ text: "Islamiat", value: "Islamiat" },
+					{ text: "Pak Studies", value: "Pak Studies" },
+					{ text: "PT", value: "PT" },
+					{ text: "Library", value: "Library" }
 				],
-				filteredValue: filteredInfo.class || null,
-				onFilter: (value, record) => record.class.includes(value)
+				filteredValue: filteredInfo.subject || null,
+				onFilter: (value, record) => record.subject.includes(value)
 			},
 			{
-				title: "Section",
-				dataIndex: "section",
-				key: "section",
-				filters: [
-					{ text: "A", value: "A" },
-					{ text: "B", value: "B" },
-					{ text: "C", value: "C" }
-				],
-				filteredValue: filteredInfo.section || null,
-				onFilter: (value, record) => record.section.includes(value)
+				title: "Class Teacher",
+				dataIndex: "class_teacher"
 			},
 			{
 				title: "Address",
@@ -294,11 +284,10 @@ class Student extends React.Component {
 				width: "170px"
 			},
 			{
-				title: "Admission Date",
-				dataIndex: "admission_date"
+				title: "Salary",
+				dataIndex: "salary"
 			}
 		];
-		// rowSelection object indicates the need for row selection
 		const rowSelection = {
 			onChange: (selectedRowKeys, selectedRows) => {
 				this.setState({
@@ -348,14 +337,14 @@ class Student extends React.Component {
 							style={{ marginBottom: "10px", marginLeft: "10px" }}
 							onClick={this.handleUpdate}
 						>
-							Update Student
+							Update Teacher
 						</Button>
 						<Button
 							disabled={selectedRows.length >= 1 ? false : true}
 							style={{ marginBottom: "10px", marginLeft: "10px" }}
 							onClick={this.handleDelete}
 						>
-							Delete Student
+							Delete Teacher
 						</Button>
 					</div>
 					<Table
@@ -377,4 +366,4 @@ class Student extends React.Component {
 	}
 }
 
-export default Student;
+export default Teacher;

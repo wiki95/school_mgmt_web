@@ -6,6 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import { Modal, Button } from "antd";
 
 const styles = {
 	root: {
@@ -21,18 +22,49 @@ const styles = {
 };
 
 class MenuAppBar extends React.Component {
+	state = {
+		modalVisible: false,
+		email: "Sorry Email Cannot be fetched something went wrong!"
+	};
+	componentDidMount() {
+		this.setState({
+			email: localStorage.getItem("Email")
+				? localStorage.getItem("Email")
+				: "Sorry Email Cannot be fetched something went wrong!"
+		});
+	}
 	handleLogout = () => {
 		localStorage.removeItem("Token");
 		this.props.history.push("/");
+	};
+	handleShow = () => {
+		this.setState({ modalVisible: true });
+	};
+	handleCancel = () => {
+		this.setState({ modalVisible: false });
 	};
 	render() {
 		const { classes } = this.props;
 
 		return (
 			<div className={classes.root}>
+				<Modal
+					title="Your Info"
+					onCancel={this.handleCancel}
+					visible={this.state.modalVisible}
+					footer={[
+						<Button onClick={this.handleCancel} key="back">
+							Cancel
+						</Button>
+					]}
+				>
+					<Typography variant="h6" color="inherit" className={classes.grow}>
+						Email: {this.state.email}
+					</Typography>
+				</Modal>
 				<AppBar
 					style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}
-					position="static"
+					position="fixed"
 				>
 					<Toolbar>
 						<Typography variant="h6" color="inherit" className={classes.grow}>
@@ -42,7 +74,7 @@ class MenuAppBar extends React.Component {
 							<IconButton
 								aria-haspopup="true"
 								color="inherit"
-								onClick={() => alert("hello from icon")}
+								onClick={this.handleShow}
 							>
 								<AccountCircle />
 							</IconButton>

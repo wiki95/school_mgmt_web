@@ -11,8 +11,17 @@ class SideBar extends React.Component {
 		if (e.keyPath[0] === "1") {
 			this.props.history.push("/home/students");
 		}
+		if (e.keyPath[0] === "2") {
+			this.props.history.push("/home/teachers");
+		}
 		if (e.keyPath[0] === "3") {
 			this.props.history.push("/home/addstudent");
+		}
+		if (e.keyPath[0] === "4") {
+			this.props.history.push("/home/addteacher");
+		}
+		if (e.keyPath[0] === "5") {
+			this.props.history.push("/home/schedule");
 		}
 	};
 	toggleCollapsed = () => {
@@ -24,9 +33,10 @@ class SideBar extends React.Component {
 		return (
 			<div
 				style={{
-					width: 256,
-					position: "absolute",
-					zIndex: this.state.collapsed ? 0 : 1
+					marginTop: "70px",
+					width: !this.state.collapsed && 256,
+					position: "fixed",
+					zIndex: 1
 				}}
 			>
 				<Button
@@ -71,13 +81,13 @@ class SideBar extends React.Component {
 						key="sub3"
 						title={
 							<span>
-								<Icon type="eye" />
-								<span>View Attendance</span>
+								<Icon type="calendar" />
+								<span>Daily Schedule</span>
 							</span>
 						}
 					>
-						<Menu.Item key="5">Student</Menu.Item>
-						<Menu.Item key="6">Teacher</Menu.Item>
+						<Menu.Item key="5">View</Menu.Item>
+						<Menu.Item key="6">Set</Menu.Item>
 					</SubMenu>
 					<SubMenu
 						key="sub4"
