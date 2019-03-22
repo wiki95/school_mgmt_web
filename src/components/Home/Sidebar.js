@@ -23,6 +23,9 @@ class SideBar extends React.Component {
 		if (e.keyPath[0] === "5") {
 			this.props.history.push("/home/schedule");
 		}
+		if (e.keyPath[0] === "6") {
+			this.props.history.push("/home/setschedule");
+		}
 	};
 	toggleCollapsed = () => {
 		this.setState({
