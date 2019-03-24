@@ -203,6 +203,7 @@ class SetSchedule extends React.Component {
 																	value={subj}
 																/>
 																<img
+																	alt="delete"
 																	className="negative-btn"
 																	style={styles.negative}
 																	onClick={e =>
@@ -215,6 +216,7 @@ class SetSchedule extends React.Component {
 													})}
 												</ul>
 												<img
+													alt="add"
 													style={styles.addButton}
 													onClick={e => this.handleAdd(e, sch._id)}
 													src={require("../../images/add.png")}

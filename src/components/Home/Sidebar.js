@@ -26,9 +26,6 @@ class SideBar extends React.Component {
 		if (e.keyPath[0] === "6") {
 			this.props.history.push("/home/notice");
 		}
-		if (e.keyPath[0] === "7") {
-			this.props.history.push("/home/fee");
-		}
 	};
 	toggleCollapsed = () => {
 		this.setState({
@@ -104,17 +101,6 @@ class SideBar extends React.Component {
 						}
 					>
 						<Menu.Item key="6">Add or Remove</Menu.Item>
-					</SubMenu>
-					<SubMenu
-						key="sub5"
-						title={
-							<span>
-								<Icon type="dollar" />
-								<span>Fee Record</span>
-							</span>
-						}
-					>
-						<Menu.Item key="7">Set</Menu.Item>
 					</SubMenu>
 				</Menu>
 			</div>
