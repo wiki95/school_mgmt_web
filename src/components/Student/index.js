@@ -309,7 +309,7 @@ class Student extends React.Component {
 		};
 
 		return (
-			<div style={{ marginTop: "70px" }}>
+			<div style={{ marginTop: "70px", marginLeft: "100px" }}>
 				{updateModalVisible && (
 					<UpdateModal
 						error={updateError}
