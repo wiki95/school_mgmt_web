@@ -24,7 +24,10 @@ class SideBar extends React.Component {
 			this.props.history.push("/home/schedule");
 		}
 		if (e.keyPath[0] === "6") {
-			this.props.history.push("/home/setschedule");
+			this.props.history.push("/home/notice");
+		}
+		if (e.keyPath[0] === "7") {
+			this.props.history.push("/home/fee");
 		}
 	};
 	toggleCollapsed = () => {
@@ -89,18 +92,19 @@ class SideBar extends React.Component {
 							</span>
 						}
 					>
-						<Menu.Item key="5">View</Menu.Item>
-						<Menu.Item key="6">Set</Menu.Item>
+						<Menu.Item key="5">Set</Menu.Item>
 					</SubMenu>
 					<SubMenu
 						key="sub4"
 						title={
 							<span>
-								<Icon type="calendar" />
-								<span>Set Schedule</span>
+								<Icon type="message" />
+								<span>Notice</span>
 							</span>
 						}
-					/>
+					>
+						<Menu.Item key="6">Add or Remove</Menu.Item>
+					</SubMenu>
 					<SubMenu
 						key="sub5"
 						title={
@@ -109,7 +113,9 @@ class SideBar extends React.Component {
 								<span>Fee Record</span>
 							</span>
 						}
-					/>
+					>
+						<Menu.Item key="7">Set</Menu.Item>
+					</SubMenu>
 				</Menu>
 			</div>
 		);

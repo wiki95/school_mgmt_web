@@ -1,6 +1,6 @@
 import React from "react";
 import { getSchedules, updateSchedule } from "../../api/schedule";
-import { Select, Button, message } from "antd";
+import { Select, Button, message, Input } from "antd";
 
 const Option = Select.Option;
 
@@ -123,10 +123,18 @@ class SetSchedule extends React.Component {
 			updateFields: fields
 		});
 	};
+	negativeHover = () => {
+		styles.negative = {
+			cursor: "pointer"
+		};
+	};
 	render() {
 		return (
 			<div style={styles.container}>
 				<div style={styles.innerContainer}>
+					<h2 style={{ marginLeft: "40px", fontWeight: "bolder" }}>
+						Schedules
+					</h2>
 					<div style={styles.inputContainer}>
 						<Select
 							defaultValue="One"
@@ -155,53 +163,67 @@ class SetSchedule extends React.Component {
 							<Option value="B">B</Option>
 							<Option value="C">C</Option>
 						</Select>
-						<Button type="primary" onClick={this.handleUpdate}>
+						<Button
+							style={{ marginTop: "4px", marginLeft: "5px" }}
+							type="primary"
+							onClick={this.handleUpdate}
+						>
 							Update
 						</Button>
 					</div>
-					<div>
+					<div style={styles.listContainer}>
 						{this.state.error ? (
 							<h3>{this.state.error}</h3>
 						) : (
-							<ul>
-								{this.state.updateFields.map(sch => {
-									return (
-										<li style={{ color: "black" }} key={sch._id}>
-											{sch.day}
-											<ul>
-												{sch.subjects.map((subj, index) => {
-													return (
-														<li key={index}>
-															<input
-																onFocus={() => console.log(index, sch._id)}
-																onChange={e =>
-																	this.changeSubject(e, sch._id, index)
-																}
-																type="text"
-																value={subj}
-															/>
-															<Button
-																onClick={e =>
-																	this.handleDelete(e, sch._id, index)
-																}
-																type="danger"
-															>
-																Delete
-															</Button>
-														</li>
-													);
-												})}
-											</ul>
-											<Button
-												onClick={e => this.handleAdd(e, sch._id)}
-												type="secondary"
-											>
-												+
-											</Button>
-										</li>
-									);
-								})}
-							</ul>
+							<div style={{ display: "flex", justifyContent: "center" }}>
+								<ul style={styles.days}>
+									{this.state.updateFields.map(sch => {
+										return (
+											<li style={{ color: "black" }} key={sch._id}>
+												{sch.day}
+												<ul style={styles.subjects}>
+													{sch.subjects.map((subj, index) => {
+														return (
+															<li style={styles.subjectList} key={index}>
+																{/* {<input
+																	style={{ width: "100px" }}
+																	onFocus={() => console.log(index, sch._id)}
+																	onChange={e =>
+																		this.changeSubject(e, sch._id, index)
+																	}
+																	type="text"
+																	value={subj}
+																/>} */}
+																<Input
+																	style={{ width: "100px" }}
+																	onChange={e =>
+																		this.changeSubject(e, sch._id, index)
+																	}
+																	type="text"
+																	value={subj}
+																/>
+																<img
+																	className="negative-btn"
+																	style={styles.negative}
+																	onClick={e =>
+																		this.handleDelete(e, sch._id, index)
+																	}
+																	src={require("../../images/negative.png")}
+																/>
+															</li>
+														);
+													})}
+												</ul>
+												<img
+													style={styles.addButton}
+													onClick={e => this.handleAdd(e, sch._id)}
+													src={require("../../images/add.png")}
+												/>
+											</li>
+										);
+									})}
+								</ul>
+							</div>
 						)}
 					</div>
 				</div>
@@ -219,11 +241,42 @@ const styles = {
 	innerContainer: {
 		backgroundColor: "rgba(255,255,255)",
 		padding: "20px",
+		paddingRight: "50px",
 		minWidth: "600px"
 	},
 	inputContainer: {
 		display: "flex",
 		justifyContent: "center"
+	},
+	addButton: {
+		cursor: "pointer",
+		width: "15px",
+		height: "15px"
+	},
+	listContainer: {
+		marginTop: "20px"
+	},
+	days: {
+		listStyleType: "none",
+		display: "flex",
+		fontWeight: "bolder",
+		justifyContent: "flex-start",
+		margin: 0,
+		padding: 0,
+		textAlign: "center"
+	},
+	subjects: {
+		listStyleType: "none",
+		marginTop: "10px"
+	},
+	subjectList: {
+		marginTop: "5px"
+	},
+	negative: {
+		cursor: "pointer",
+		marginLeft: "3px",
+		height: "15px",
+		width: "15px"
 	}
 };
 

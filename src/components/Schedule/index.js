@@ -2,6 +2,8 @@ import React from "react";
 import { Select, Table } from "antd";
 import { getSchedules } from "../../api/schedule";
 
+/////////////this component is not using anywhere
+
 const Option = Select.Option;
 
 const columns = [
